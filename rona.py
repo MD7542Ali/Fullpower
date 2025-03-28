@@ -1,25 +1,17 @@
+import os
 import time
 import subprocess
 
-def keep_dashwave_active():
-    while True:  # Infinite loop to run 24×7
-        try:
-            start_time = time.time()
-            
-            while True:
-                # Prevent inactivity in Dashwave
-                subprocess.run(["echo", "Keeping workspace active"], check=True)
+BOT_SCRIPT = "p.py"
 
-                # Heartbeat message to keep session alive
-                elapsed = int(time.time() - start_time)
-                print(f"✅ Dashwave active. Uptime: {elapsed} sec", flush=True)
+def restart_bot():
+    while True:
+        print("🚀 Starting bot...")
+        process = subprocess.Popen(["python3", "p.py"])
 
-                # Wait 5 minutes before next keep-alive signal
-                time.sleep(300)
+        process.wait()  # Wait for bot to stop (e.g., after 6 hours)
+        print("⚠️ Bot stopped! Restarting in 5 seconds...")
+        time.sleep(5)
 
-        except Exception as e:
-            print(f"⚠️ Error: {e}. Restarting keep-alive script...", flush=True)
-            time.sleep(5)  # Short delay before auto-restart
-
-# 🔄 Start 24×7 execution
-keep_dashwave_active()
+if __name__ == "__main__":
+    restart_bot()
