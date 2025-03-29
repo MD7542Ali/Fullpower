@@ -1,25 +1,19 @@
-import os
 import time
-import random
 
-# List of example commands to simulate terminal activity
-commands = [
-    'echo "Keeping the workspace alive!"',
-    'pwd',  # Print working directory
-    'ls',   # List directory contents
-    'top -n 1',  # Run a one-time top command
-    'uptime',  # Show system uptime
-    'df -h',  # Disk usage
-    'free -m',  # Memory usage
-]
+start_time = time.time()
+run_duration = 24 * 3600  # 24 hours in seconds
 
-# Function to run random command
-def run_random_command():
-    command = random.choice(commands)
-    print(f"Running command: {command}")
-    os.system(command)
+def main():
+    while True:
+        elapsed_time = time.time() - start_time
+        hours = elapsed_time / 3600
+        print(f"Script has been running for {hours:.2f} hours.")
 
-# Keep the terminal alive with random commands every 60-120 seconds
-while True:
-    run_random_command()
-    time.sleep(random.randint(60, 120))  # Sleep for a random period between 60 and 120 seconds
+        if elapsed_time >= run_duration:
+            print("24 hours reached. Stopping script.")
+            break  # Exit the loop after 24 hours
+
+        time.sleep(60)  # Waits for 60 seconds before the next iteration
+
+if __name__ == "__main__":
+    main()
